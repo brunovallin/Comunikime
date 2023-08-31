@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Produto } from 'src/app/models/Produto';
@@ -30,6 +30,7 @@ export class ProdutoDetalheComponent implements OnInit {
     private toastr: ToastrService,
     private fb: FormBuilder,
     private router: ActivatedRoute,
+    private route:Router,
     private produtoService: ProdutoService
   ) {}
 
@@ -49,14 +50,14 @@ export class ProdutoDetalheComponent implements OnInit {
   public validation(): void {
     this.form = this.fb.group({
       descricao: new FormControl('', Validators.required),
-      precoUnitario: new FormControl('', Validators.required),
-      quantidadeEstoque: new FormControl('', Validators.required),
+      precoUnitario: new FormControl('', [Validators.required,Validators.min(0)]),
+      quantidadeEstoque: new FormControl('', [Validators.required,Validators.min(0)]),
       categoria: new FormControl('', Validators.required),
     });
   }
 
   resetForm(): void {
-    this.form.reset();
+    this.route.navigate(['produto/produto-lista']);
   }
   public carregarProduto(): void {
     const produtoIdParam = this.router.snapshot.paramMap.get('id');
@@ -96,7 +97,10 @@ export class ProdutoDetalheComponent implements OnInit {
       }else{
         this.produto = {id: this.produto.id, ... this.form.value };
         this.produtoService.putProduto(this.produto.id, this.produto).subscribe(
-          () => this.toastr.success('Produto alterado com sucesso.'),
+          () => {
+            this.toastr.success('Produto alterado com sucesso.');
+            this.route.navigate(['produto/produto-lista']);
+          },
           (error: any) => {
             console.error(error);
             this.spinner.hide();
@@ -106,5 +110,6 @@ export class ProdutoDetalheComponent implements OnInit {
         );
       }
     }
+    this.spinner.hide();
   }
 }

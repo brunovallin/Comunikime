@@ -12,12 +12,12 @@
           }"
           placeholder=""
         />
-        <div class="invalid-feedback">Descrição é obrigatória.</div>
+        <div *ngIf="f.descricao.errors?.required" class="invalid-feedback">Descrição é obrigatória.</div>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
-        <label>Preço Unitário:</label>
+        <label>Preço Unitário (R$):</label>
         <input
           type="number"
           (keypress)="numberOnly($event)"
@@ -28,7 +28,8 @@
           }"
           placeholder=""
         />
-        <div class="invalid-feedback">Preço Unitário é obrigatório.</div>
+        <div *ngIf="f.precoUnitario.errors?.required" class="invalid-feedback">Preço Unitário é obrigatório.</div>
+        <div *ngIf="f.precoUnitario.errors?.min" class="invalid-feedback">Não é possível cadastrar valor negativo.</div>
       </div>
       <div class="form-group col-md-4">
         <label>Quantidade em Estoque: </label>
@@ -42,7 +43,8 @@
           }"
           placeholder=""
         />
-        <div class="invalid-feedback">Quantidade em Estoque é obrigatória.</div>
+        <div *ngIf="f.quantidadeEstoque.errors?.required" class="invalid-feedback">Quantidade em Estoque é obrigatória.</div>
+        <div *ngIf="f.quantidadeEstoque.errors?.min" class="invalid-feedback">Não é possível cadastrar valor negativo.</div>
       </div>
       <div class="form-group col-md-4">
         <label>Categoria: </label>
@@ -55,14 +57,16 @@
           }"
           placeholder=""
         />
-        <div class="invalid-feedback">Categoria é obrigatória.</div>
+        <div *ngIf="f.categoria.errors?.required" class="invalid-feedback">Categoria é obrigatória.</div>
       </div>
     </div>
   </div>
   <div class="card-footer">
     <div class="d-flex">
       <button class="btn btn-outline-secondary mr-auto border" (click)="resetForm()">Cancelar</button>
-      <button class="btn btn-success" (click)="salvarProduto()">Salvar Evento</button>
+      <button class="btn btn-success"
+      [disabled]="!form.valid"
+      (click)="salvarProduto()">Salvar Produto</button>
     </div>
   </div>
 </form>
