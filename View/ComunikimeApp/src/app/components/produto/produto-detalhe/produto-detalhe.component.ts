@@ -23,7 +23,7 @@ export class ProdutoDetalheComponent implements OnInit {
   public produtoId = 0;
 
   get f(): any {
-    return this.form.controls;
+    return this.form?.controls;
   }
 
   constructor(private spinner:NgxSpinnerService,
@@ -34,8 +34,8 @@ export class ProdutoDetalheComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.carregarProduto();
     this.validation();
+    this.carregarProduto();
   }
 
   numberOnly(event: any): boolean {
@@ -59,13 +59,11 @@ export class ProdutoDetalheComponent implements OnInit {
     this.form.reset();
   }
   public carregarProduto(): void {
-
     const produtoIdParam = this.router.snapshot.paramMap.get('id');
 
     if (produtoIdParam !== null) {
       this.spinner.show();
       this.statusSalva = 'put';
-      this.f.
       this.produtoService.getProdutoById(+produtoIdParam).subscribe(
         (produto: Produto) => {
           this.produto = { ...produto };

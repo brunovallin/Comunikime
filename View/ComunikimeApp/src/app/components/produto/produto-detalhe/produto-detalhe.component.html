@@ -8,7 +8,7 @@
           formControlName="descricao"
           class="form-control"
           [ngClass]="{
-            'is-invalid': f.descricao.errors && f.descricao.touched
+            'is-invalid': this.f.descricao.errors && this.f.descricao.touched
           }"
           placeholder=""
         />
@@ -24,7 +24,7 @@
           formControlName="precoUnitario"
           class="form-control"
           [ngClass]="{
-            'is-invalid': f.precoUnitario.errors && f.precoUnitario.touched
+            'is-invalid': this.f.precoUnitario.errors && this.f.precoUnitario.touched
           }"
           placeholder=""
         />
@@ -38,7 +38,7 @@
           formControlName="quantidadeEstoque"
           class="form-control is-invalid"
           [ngClass]="{
-            'is-invalid': f.quantidadeEstoque.errors && f.quantidadeEstoque.touched
+            'is-invalid': this.f.quantidadeEstoque.errors && this.f.quantidadeEstoque.touched
           }"
           placeholder=""
         />
@@ -51,7 +51,7 @@
           formControlName="categoria"
           class="form-control "
           [ngClass]="{
-            'is-invalid': f.categoria.errors && f.categoria.touched
+            'is-invalid': this.f.categoria.errors && this.f.categoria.touched
           }"
           placeholder=""
         />
