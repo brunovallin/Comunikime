@@ -1,0 +1,13 @@
+App/Comunikime.API/obj/*
+App/Comunikime.Application/obj/*
+App/Comunikime.Domain/obj/*
+App/Comunikime.Persistence/obj/*
+App/Comunikime.API/Comunikime.db
+.vscode/launch.json
+.vscode/tasks.json
+App/Comunikime.API/bin/*
+App/Comunikime.API/Comunikime.Persistence/obj/*
+App/Comunikime.Application/bin/Debug/net5.0/*
+App/Comunikime.Domain/bin/*
+App/Comunikime.Persistence/bin/*
+View/ComunikimeApp/.vscode/*

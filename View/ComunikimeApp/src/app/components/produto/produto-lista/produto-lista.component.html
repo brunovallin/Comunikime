@@ -1,0 +1,60 @@
+<div class="card rounded shadow-lg p-3">
+  <div class="d-flex">
+    <div class="flex-fill pr-3">
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <label class="mr-2">Filtro:</label>
+        </div>
+        <input
+          type="text"
+          class="form-control mr-2"
+          placeholder="Filtrar por descrição ou categoria"
+          [(ngModel)]="listFilter"
+        />
+      </div>
+    </div>
+    <div>
+      <a class='d-flex btn btn-outline-primary' routerLink="/produto/produto-detalhe">
+        <i class="fa fa-plus-circle my-1"></i>
+        <b class="ml-1 d-none d-sm-block" >Novo</b></a>
+    </div>
+  </div>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Descrição</th>
+          <th scope="col">Preço Unitário</th>
+          <th scope="col">Categoria</th>
+          <th scope="col">Opções</th>
+        </tr>
+      </thead>
+      <tbody *ngIf="produtos && produtos.length">
+        <tr *ngFor="let produto of produtosFiltrados">
+          <td>{{ produto.descricao }}</td>
+          <td>{{ produto.precoUnitario | currency : "BRL" }}</td>
+          <td>{{ produto.categoria }}</td>
+          <td>
+            <button class="btn btn-primary btn-sm mr-2" tooltip="Editar" (click)="detalheProduto(produto.id)"><i class="fa fa-edit"></i></button>
+            <button class="btn btn-danger btn-sm" tooltip="Excluir" (click)="openModal(template,produto.id,produto.descricao)"><i class="fa fa-trash-alt"></i></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot *ngIf="!produtos.length">
+        <tr>
+          <td colspan="8" class="text-center">
+            <h4>Nenhum produto encontrado!</h4>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+</div>
+
+<!-- Modals-->
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Certeza que quer excluir este produto?</p>
+    <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button>
+  </div>
+</ng-template>
+

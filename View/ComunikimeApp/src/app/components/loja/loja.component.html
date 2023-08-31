@@ -1,0 +1,89 @@
+<app-titulo [titulo]="'Loja'"></app-titulo>
+
+<div class="container">
+  <div class="row">
+    <div class="card rounded shadow-lg col col-8">
+      <div class="d-flex">
+        <div class="flex-fill pr-3">
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <label class="mr-2">Filtro:</label>
+            </div>
+            <input
+              type="text"
+              class="form-control mr-2"
+              placeholder="Filtrar por descrição ou categoria"
+              [(ngModel)]="listFilter"
+            />
+          </div>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Descrição</th>
+            <th scope="col">Preço Unitário</th>
+            <th scope="col">Categoria</th>
+            <th scope="col">Opções</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="produtos && produtos.length">
+          <tr *ngFor="let produto of produtosFiltrados">
+            <td>{{ produto.descricao }}</td>
+            <td>{{ produto.precoUnitario | currency : "BRL" }}</td>
+            <td>{{ produto.categoria }}</td>
+            <td>
+              <button
+                class="btn btn-primary btn-sm mr-2"
+                tooltip="Adicionar ao Carrinho"
+              (click)="addCarrinho(produto)">
+                <i class="fa fa-cart-plus"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="!produtos.length">
+          <tr>
+            <td colspan="8" class="text-center">
+              <h4>Nenhum produto encontrado!</h4>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="col col-4">
+      <div class="container shadow-lg">
+        <table class="table table-borderless card rounded m-1 align-content-center">
+          <thead>
+            <th class="title">Carrinho</th>
+          </thead>
+          <tbody>
+            <tr *ngIf="produtosAddCarrinho.length === 0">
+              <td class="text-danger"><i class="fa fa-shopping-cart p-1"></i>Carrinho Vazio</td>
+            </tr>
+            <tr class="list-group" *ngFor="let produtoCarrinho in produtoAddCarrinho">
+
+              <ul >
+                <li>{{produtoCarrinho.descricao}}<li>
+                <li class="text-info">{{produtoCarrinho.valor}}</li>
+              </ul>
+            </tr>
+          </tbody>
+          <tfoot>
+            <span>Total: </span>
+              <strong></strong>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modals-->
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Certeza que quer excluir este produto?</p>
+    <!-- <button type="button" class="btn btn-default" (click)="confirm()">Sim</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">Não</button> -->
+  </div>
+</ng-template>
